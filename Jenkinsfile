@@ -9,13 +9,19 @@ pipeline {
             }
         }
 
-        stage('Test') {
+        stage('Dependiencies') {
             steps {
                 script {
-                    // Run npm install to install project dependencies
+                    echo 'Install npm'
                     sh 'npm install'
-                    sh 'npm test'
                 }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+                sh 'npm test'
             }
         }
 
@@ -25,11 +31,7 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                echo 'Running tests...'
-            }
-        }
+
 
         stage('Deploy') {
             steps {
