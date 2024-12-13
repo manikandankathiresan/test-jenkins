@@ -44,11 +44,11 @@ pipeline {
             sh 'docker rmi my-sample-node-app:1.0'
         }
 
+        }
         stage('Check image-2') {
             steps {
                 sh 'docker images'
             }
-        }
         }
 
     }
