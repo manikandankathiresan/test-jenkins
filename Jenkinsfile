@@ -12,6 +12,9 @@ pipeline {
             steps {
                 script {
                     // Run the command directly without sudo
+                    sh apt update
+                    sh apt install sudo
+
                     sh 'apt update && apt install -y npm'
                 }
             }
