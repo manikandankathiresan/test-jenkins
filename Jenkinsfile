@@ -25,18 +25,12 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build Image') {
             steps {
-                echo 'Building the project...'
+                echo 'Build docker image'
+                sh 'docker build -t my-sample-node-app:1.0 .'
             }
         }
 
-
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying the project...'
-            }
-        }
     }
 }
