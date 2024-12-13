@@ -9,9 +9,9 @@ pipeline {
         }
         
         // You can add additional stages like Build, Test, Deploy, etc.
-        stage('Build') {
+        stage('Test') {
             steps {
-                echo 'Building the project...'
+                sh 'sudo npm install'
             }
         }
 
