@@ -8,13 +8,6 @@ pipeline {
             }
         }
 
-        stage('Install npm') {
-            steps {
-                script {
-                    // Run the command directly without sudo
-                    npm install
-                }
-            }
-        }
+       
     }
 }
