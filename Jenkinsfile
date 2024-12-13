@@ -11,7 +11,7 @@ pipeline {
         // You can add additional stages like Build, Test, Deploy, etc.
         stage('Test') {
             steps {
-                echo 'node -v'
+                echo 'sudo node -v'
                 sh 'npm install'
             }
         }
