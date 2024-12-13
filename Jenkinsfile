@@ -1,20 +1,20 @@
 pipeline {
-    agent any  // Run on any available agent
-    
+    agent {
+        docker {
+            image 'node:16'  // Use the official Node.js Docker image
+            args '-u root'   // Optional: Run as root (if needed for installing npm globally)
+        }
+    }
     stages {
-        stage('Checkout SCM') {
+        stage('Install npm') {
             steps {
-                checkout scm  // This command checks out the source code from the repository
+                sh 'npm install'  // Run npm install directly
             }
         }
-        
-        // You can add additional stages like Build, Test, Deploy, etc.
-        stage('Test') {
+        stage('Build') {
             steps {
-                echo 'sudo node -v'
-                sh 'npm install'
+                echo 'Building the project...'
             }
         }
-
     }
 }
