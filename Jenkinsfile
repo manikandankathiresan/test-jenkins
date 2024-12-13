@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:18'  // Official Node.js Docker image that includes node and npm
-            args '-u root'   // Optional: run as root if necessary
-        }
-    }
+    agent any
     
     stages {
         stage('Checkout SCM') {
@@ -16,8 +11,8 @@ pipeline {
         stage('Install Node.js and npm') {
             steps {
                 script {
-                    // node:16 already includes npm and node.js
-                    echo 'Node.js and npm are already installed!'
+                    // Run the installation directly without sudo if the user has necessary privileges
+                    sh 'apt update && apt install -y nodejs npm'
                 }
             }
         }
