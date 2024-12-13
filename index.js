@@ -6,6 +6,11 @@ app.get('/', (req, res) => {
   res.send('Hello, World! This is a Node.js app inside Docker.');
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+// If you're using the app with a test, export it for use in the test file
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+module.exports = app;  // Export app for testing

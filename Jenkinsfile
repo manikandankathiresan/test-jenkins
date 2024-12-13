@@ -9,11 +9,12 @@ pipeline {
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Test') {
             steps {
                 script {
                     // Run npm install to install project dependencies
                     sh 'npm install'
+                    sh 'npm test'
                 }
             }
         }
