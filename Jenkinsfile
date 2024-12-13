@@ -11,8 +11,8 @@ pipeline {
         stage('Install npm') {
             steps {
                 script {
-                    // Installing npm (Node.js package manager)
-                    sh 'sudo apt update && sudo apt install -y npm'  // Install npm
+                    // Run the command directly without sudo
+                    sh 'apt update && apt install -y npm'
                 }
             }
         }
