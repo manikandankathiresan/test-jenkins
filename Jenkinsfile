@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'node:16'  // Official Node.js Docker image that includes node and npm
+            image 'node:18'  // Official Node.js Docker image that includes node and npm
             args '-u root'   // Optional: run as root if necessary
         }
     }
