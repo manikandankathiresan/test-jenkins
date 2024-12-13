@@ -1,10 +1,12 @@
-pipeline {
+pipeline{
     agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                bat 'npm install'
+    tools{
+        nodejs '21.6.2'
+    }
+    stages{
+        stage('Example'){
+            steps{
+                sh 'npm version'
             }
         }
     }
