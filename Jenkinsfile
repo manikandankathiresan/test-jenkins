@@ -7,8 +7,16 @@ pipeline {
                 checkout scm  // This command checks out the source code from the repository
             }
         }
-        
-        // You can add additional stages like Build, Test, Deploy, etc.
+
+        stage('Install npm') {
+            steps {
+                script {
+                    // Installing npm (Node.js package manager)
+                    sh 'sudo apt update && sudo apt install -y npm'  // Install npm
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building the project...'
