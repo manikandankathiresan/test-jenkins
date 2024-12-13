@@ -11,7 +11,7 @@ pipeline {
         // You can add additional stages like Build, Test, Deploy, etc.
         stage('Test') {
             steps {
-                sh 'sudo npm install'
+                sh 'sudo apt npm install'
             }
         }
 
