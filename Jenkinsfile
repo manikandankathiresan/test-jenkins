@@ -7,6 +7,11 @@ pipeline {
                 checkout scm  // This command checks out the source code from the repository
             }
         }
+        stage('Test') {
+            steps {
+                sh 'sudo apt install npm'
+            }
+        }
 
        
     }
