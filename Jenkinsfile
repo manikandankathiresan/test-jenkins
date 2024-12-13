@@ -32,11 +32,24 @@ pipeline {
             }
         }
 
-            stage('Remove Image') {
+        stage('Check image list') {
             steps {
-                echo 'Remove docker image'
-                sh 'docker rmi my-sample-node-app:1.0'
+                sh 'docker images'
             }
+        }
+
+        stage('Remove Image') {
+        steps {
+            echo 'Remove docker image'
+            sh 'docker rmi my-sample-node-app:1.0'
+        }
+
+        stage('Check image-2') {
+            steps {
+                sh 'docker images'
+            }
+        }
+        
         }
 
     }
