@@ -46,8 +46,10 @@ pipeline {
                 // Docker login
                 sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
 
+                sh 'docker tag /my-sample-node-app mkprofile98/my-sample-node-app:latest'
+
                 // Docker push (replace with your actual image name)
-                sh 'docker push my-sample-node-app:1.0'  // Update with your image name and tag
+                sh 'docker push mkprofile98/my-sample-node-app:latest'
 
                 // Docker logout
                 sh 'docker logout'
@@ -60,7 +62,7 @@ pipeline {
         stage('Remove Image') {
         steps {
             echo 'Remove docker image'
-            sh 'docker rmi my-sample-node-app:1.0'
+            // sh 'docker rmi my-sample-node-app:1.0'
         }
 
         }
