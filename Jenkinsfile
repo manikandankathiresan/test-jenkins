@@ -73,6 +73,7 @@ stage('Build and Push Docker Image') {
             echo 'Remove docker image'
             // sh 'docker rmi my-sample-node-app:1.0'
             sh 'docker rmi mkprofile98/my-sample-node-app:latest'
+            sh 'docker rmi my-sample-node-app:1.0'
         }
 
         }
