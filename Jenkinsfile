@@ -38,17 +38,25 @@ pipeline {
             }
         }
 
-        stage('Build and Push Docker Image') {
+stage('Build and Push Docker Image') {
     steps {
         script {
             // Docker login, push, and logout in one stage
-            withCredentials([usernamePassword(credentialsId: '7305bc5f-b39e-4626-9e92-455d97856104', usernameVariable: 'DOCKERHUB_USER_NAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+            withCredentials([usernamePassword(credentialsId: '7305bc5f-b39e-4626-9e92-455d97856104', 
+                                              usernameVariable: 'DOCKERHUB_USER_NAME', 
+                                              passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+
                 // Docker login
                 sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
 
-                sh 'docker tag /my-sample-node-app mkprofile98/my-sample-node-app:latest'
+                // Build the Docker image (if not already built)
+                // Uncomment the line below if you need to develop the image before tagging
+                // sh 'docker build -t my-sample-node-app .'
 
-                // Docker push (replace with your actual image name)
+                // Docker tags the image with a repository and version
+                sh 'docker tag my-sample-node-app mkprofile98/my-sample-node-app:latest'
+
+                // Docker push (pushes the tagged image to the repository)
                 sh 'docker push mkprofile98/my-sample-node-app:latest'
 
                 // Docker logout
@@ -57,6 +65,7 @@ pipeline {
         }
     }
 }
+
 
 
         stage('Remove Image') {
