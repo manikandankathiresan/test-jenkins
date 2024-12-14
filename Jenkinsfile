@@ -54,7 +54,7 @@ stage('Build and Push Docker Image') {
                 // sh 'docker build -t my-sample-node-app .'
 
                 // Docker tags the image with a repository and version
-                sh 'docker tag my-sample-node-app mkprofile98/my-sample-node-app:latest'
+                sh 'docker tag my-sample-node-app:1.0 mkprofile98/my-sample-node-app:latest'
 
                 // Docker push (pushes the tagged image to the repository)
                 sh 'docker push mkprofile98/my-sample-node-app:latest'
