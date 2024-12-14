@@ -38,6 +38,25 @@ pipeline {
             }
         }
 
+        stage('Build and Push Docker Image') {
+    steps {
+        script {
+            // Docker login, push, and logout in one stage
+            withCredentials([usernamePassword(credentialsId: 'docker_cred', usernameVariable: 'DOCKERHUB_USER_NAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                // Docker login
+                sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
+
+                // Docker push (replace with your actual image name)
+                sh 'docker push your-image-name:latest'  // Update with your image name and tag
+
+                // Docker logout
+                sh 'docker logout'
+            }
+        }
+    }
+}
+
+
         stage('Remove Image') {
         steps {
             echo 'Remove docker image'
