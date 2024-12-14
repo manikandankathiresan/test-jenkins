@@ -42,7 +42,7 @@ pipeline {
     steps {
         script {
             // Docker login, push, and logout in one stage
-            withCredentials([usernamePassword(credentialsId: 'docker_cred', usernameVariable: 'DOCKERHUB_USER_NAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+            withCredentials([usernamePassword(credentialsId: '7305bc5f-b39e-4626-9e92-455d97856104', usernameVariable: 'DOCKERHUB_USER_NAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
                 // Docker login
                 sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
 
