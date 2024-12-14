@@ -28,7 +28,7 @@ pipeline {
         stage('Build Image') {
             steps {
                 echo 'Build docker image'
-                sh 'docker build -no-cache -t my-sample-node-app:1.0 .'
+                sh 'docker build --no-cache -t my-sample-node-app:1.0 .'
             }
         }
 
