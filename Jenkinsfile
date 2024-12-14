@@ -9,79 +9,84 @@ pipeline {
             }
         }
 
-        stage('Dependiencies') {
+        stage('Install Dependencies') {
             steps {
                 script {
-                    echo 'Install npm'
+                    echo 'Installing npm dependencies'
                     sh 'npm install'
                 }
             }
         }
 
-        stage('Test') {
+        stage('Run Tests') {
             steps {
                 echo 'Running tests...'
+                // Uncomment if you want to run tests
                 // sh 'npm test'
             }
         }
 
-        stage('Build Image') {
+        stage('Build Docker Image') {
             steps {
-                echo 'Build docker image'
+                echo 'Building Docker image'
                 sh 'docker build --no-cache -t my-sample-node-app:1.0 .'
             }
         }
 
-        stage('Check image list') {
+        stage('List Docker Images') {
             steps {
+                echo 'Listing Docker images'
                 sh 'docker images'
             }
         }
 
-stage('Build and Push Docker Image') {
-    steps {
-        script {
-            // Docker login, push, and logout in one stage
-            withCredentials([usernamePassword(credentialsId: '7305bc5f-b39e-4626-9e92-455d97856104', 
-                                              usernameVariable: 'DOCKERHUB_USER_NAME', 
-                                              passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+        stage('Login to Docker Hub') {
+            steps {
+                script {
+                    // Docker login in a separate stage
+                    withCredentials([usernamePassword(credentialsId: '7305bc5f-b39e-4626-9e92-455d97856104', 
+                                                      usernameVariable: 'DOCKERHUB_USER_NAME', 
+                                                      passwordVariable: 'DOCKERHUB_PASSWORD')]) {
+                        sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
+                    }
+                }
+            }
+        }
 
-                // Docker login
-                sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
-
-                // Build the Docker image (if not already built)
-                // Uncomment the line below if you need to develop the image before tagging
-                // sh 'docker build -t my-sample-node-app .'
-
-                // Docker tags the image with a repository and version
+        stage('Tag Docker Image') {
+            steps {
+                echo 'Tagging Docker image'
                 sh 'docker tag my-sample-node-app:1.0 mkprofile98/my-sample-node-app:latest'
+            }
+        }
 
-                // Docker push (pushes the tagged image to the repository)
+        stage('Push Docker Image') {
+            steps {
+                echo 'Pushing Docker image to Docker Hub'
                 sh 'docker push mkprofile98/my-sample-node-app:latest'
+            }
+        }
 
-                // Docker logout
+        stage('Logout from Docker Hub') {
+            steps {
+                echo 'Logging out from Docker Hub'
                 sh 'docker logout'
             }
         }
-    }
-}
 
-
-
-        stage('Remove Image') {
-        steps {
-            echo 'Remove docker image'
-            // sh 'docker rmi my-sample-node-app:1.0'
-            sh 'docker rmi mkprofile98/my-sample-node-app:latest'
-            sh 'docker rmi my-sample-node-app:1.0'
-        }
-
-        }
-        stage('Check image-2') {
+        stage('Remove Docker Image') {
             steps {
-                sh 'docker images'
+                echo 'Removing Docker images'
+                sh 'docker rmi mkprofile98/my-sample-node-app:latest'
+                sh 'docker rmi my-sample-node-app:1.0'
             }
         }
 
+        stage('List Docker Images After Removal') {
+            steps {
+                echo 'Listing Docker images after removal'
+                sh 'docker images'
+            }
+        }
     }
 }
