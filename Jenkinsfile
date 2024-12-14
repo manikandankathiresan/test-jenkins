@@ -47,7 +47,7 @@ pipeline {
                 sh 'docker login -u $DOCKERHUB_USER_NAME -p $DOCKERHUB_PASSWORD'
 
                 // Docker push (replace with your actual image name)
-                sh 'docker push your-image-name:latest'  // Update with your image name and tag
+                sh 'docker push my-sample-node-app:1.0'  // Update with your image name and tag
 
                 // Docker logout
                 sh 'docker logout'
